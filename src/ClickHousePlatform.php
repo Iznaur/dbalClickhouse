@@ -857,10 +857,14 @@ class ClickHousePlatform extends AbstractPlatform
 		}
 		elseif ($engine === 'Buffer')
 		{
+			$source = $options['source'];
+			// -----------------------------------------------
+			// Buffer(database, table, num_layers, min_time, max_time, min_rows, max_rows, min_bytes, max_bytes)
+			// -----------------------------------------------
 			$sql[] = sprintf(
-				"CREATE TABLE IF NOT EXISTS {$tableName}_buffer AS {$tableName} ENGINE = Buffer(default, {$tableName}, 16, 1, 10, 1, 10, 1000000, 10000000)",
+				"CREATE TABLE IF NOT EXISTS {$tableName} AS {$source} ENGINE = Buffer(default, {$source}, 16, 1, 10, 1, 10, 1000000, 10000000)",
 				$tableName
-			);
+			); //TODO поддержка параметров
 //			// -----------------------------------------------
 //			// Buffer(database, table, num_layers, min_time, max_time, min_rows, max_rows, min_bytes, max_bytes)
 //			// -----------------------------------------------
