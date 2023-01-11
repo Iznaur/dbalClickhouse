@@ -857,23 +857,26 @@ class ClickHousePlatform extends AbstractPlatform
 		}
 		elseif ($engine === 'Buffer')
 		{
-
-			// -----------------------------------------------
-			// Buffer(database, table, num_layers, min_time, max_time, min_rows, max_rows, min_bytes, max_bytes)
-			// -----------------------------------------------
 			$sql[] = sprintf(
-				"CREATE TABLE IF NOT EXISTS %s AS {%s} ENGINE = Buffer(default, %s, %s, %s, %s, %s, %s, %s, %s)",
-				$tableName,
-				$options['table'],
-				$options['table'],
-				$options['numLayers'],
-				$options['minTime'],
-				$options['maxTime'],
-				$options['minRows'],
-				$options['maxRows'],
-				$options['minBytes'],
-				$options['maxBytes']
+				"CREATE TABLE IF NOT EXISTS {$tableName}_buffer AS {$tableName} ENGINE = Buffer(default, {$tableName}, 16, 1, 10, 1, 10, 1000000, 10000000)",
+				$tableName
 			);
+//			// -----------------------------------------------
+//			// Buffer(database, table, num_layers, min_time, max_time, min_rows, max_rows, min_bytes, max_bytes)
+//			// -----------------------------------------------
+//			$sql[] = sprintf(
+//				"CREATE TABLE IF NOT EXISTS %s AS {%s} ENGINE = Buffer(default, %s, %s, %s, %s, %s, %s, %s, %s)",
+//				$tableName,
+//				$options['table'],
+//				$options['table'],
+//				$options['numLayers'],
+//				$options['minTime'],
+//				$options['maxTime'],
+//				$options['minRows'],
+//				$options['maxRows'],
+//				$options['minBytes'],
+//				$options['maxBytes']
+//			);
 		}
 		elseif ($engine === 'Distributed')
 		{
